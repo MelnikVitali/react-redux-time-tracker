@@ -6,17 +6,13 @@
   "license": "ISC",
   "private": true,
   "homepage": "https://melnikvitali.github.io/react-redux-time-tracker/",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/MelnikVitali/react-redux-time-tracker"
-  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "gh-pages -d build",
-    "predeploy": "npm run build"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "@emotion/react": "^11.1.5",
@@ -32,7 +28,8 @@
     "react-redux": "^7.2.2",
     "react-scripts": "4.0.3",
     "redux": "^4.0.5",
-    "redux-devtools-extension": "^2.13.9"
+    "redux-devtools-extension": "^2.13.9",
+    "uuid": "^8.3.2"
   },
   "eslintConfig": {
     "extends": [

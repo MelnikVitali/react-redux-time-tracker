@@ -1,1 +1,1 @@
-export {default} from './TimerView';
+export { default } from './TimerView';

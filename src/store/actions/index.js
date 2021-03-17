@@ -4,9 +4,9 @@ export const SELECT_TIMER = 'SELECT_TIMER';
 export const REMOVE_TIMER = 'REMOVE_TIMER';
 export const UPDATE = 'UPDATE';
 
-export const addTimer = name => ({
+export const addTimer = timer => ({
     type: NEW_TIMER,
-    payload: { name }
+    payload:  timer
 });
 
 export const toggleTimer = index => ({

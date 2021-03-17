@@ -30,13 +30,12 @@ let lastUpdateTime = Date.now();
 //     timerId = setTimeout(tick, 1000);
 // }, 1000);
 
-let timerId = setInterval(() => {
+setInterval(() => {
     const now = Date.now();
     const deltaTime = now - lastUpdateTime;
     lastUpdateTime = now;
     store.dispatch(update(deltaTime));
 }, 1000);
 
-// clearInterval(timerId);
 
 export default store;

@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { addTimer } from '../../store/actions';
 import PlayCircleIcon from '@material-ui/icons/PlayCircleFilledWhite';
 
 import useStyles from './styles';
-import { Box,  FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput } from '@material-ui/core';
+import { Box, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput } from '@material-ui/core';
+import { createNewTimer } from '../../utils/createNewTimer';
 
 const NewTimer = () => {
-    const [name, setName] = useState('');
+    const [ name, setName ] = useState('');
+
+    const timers = useSelector(state => state.timers);
 
     const dispatch = useDispatch();
     const classes = useStyles();
@@ -17,7 +20,7 @@ const NewTimer = () => {
         setName(event.target.value);
     };
 
-    const handleKeyPress = (event) =>{
+    const handleKeyPress = (event) => {
         // event.preventDefault();
 
         if (event.key === 'Enter') {
@@ -27,12 +30,14 @@ const NewTimer = () => {
     };
 
     const handleClickAddTimer = () => {
-        dispatch(addTimer(name));
+        const newTimer = createNewTimer(name, timers);
+        // console.log(newTimer);
+        dispatch(addTimer(newTimer));
         setName('');
     };
 
     return (
-        <Box component='section' className={classes.root}>
+        <Box component='section' className={classes.root} >
             <FormControl className={classes.formControl} variant="outlined" fullWidth >
                 <InputLabel
                     htmlFor="outlined-adornment-password"
@@ -55,7 +60,7 @@ const NewTimer = () => {
                             <IconButton
                                 className={classes.btn}
                                 aria-label="toggle password visibility"
-                                onClick={(name)=>handleClickAddTimer(name)}
+                                onClick={(name) => handleClickAddTimer(name)}
                                 edge="end"
                             >
                                 <PlayCircleIcon

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { Divider, List } from '@material-ui/core';
+import { List } from '@material-ui/core';
 
 import TimerView from '../TimerView';
 

@@ -10,7 +10,7 @@ const useStyles = makeStyles(theme => ({
     listItemIcon: {
         minWidth: `${pxToRem(49)} !important`
     },
-    listItemText:{
+    listItemText: {
         minWidth: pxToRem(164),
         flex: '2 2 auto'
     }
