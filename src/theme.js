@@ -1,163 +1,170 @@
 import { createMuiTheme } from '@material-ui/core/styles';
-import createBreakpoints from "@material-ui/core/styles/createBreakpoints";
 
-import { pxToRem } from "./utils/pxToRem";
+import { pxToRem } from './utils/pxToRem';
 
-// Generate breakpoints so we can use them in the theme definition
-const breakpoints = createBreakpoints({});
 
 const theme = createMuiTheme({
+    breakpoints: {
+        values: {
+            xs: 320,
+            sm: 560,
+            md: 560,
+            lg: 560,
+            xl: 560,
+        },
+    },
+    spacing: 6,
+    typography: {
+        fontFamily: 'PT Sans, sans-serif'
+    },
     palette: {
         primary: {
-            main: '#FDD000',
-            contrastText: '#3D3D3D',
-            alert: '#DD4040'
+            main: '#3faf6c',
+            mainHover: '#D24335',
+            contrastText: '#212529',
+            errorText: '#db3445'
         },
         secondary: {
-            main: '#272829',
-            contrastText: '#fff'
+            main: '#007bff',
+            contrastText: '#4c4b4b',
         },
-        disabledDate: {
-            main: '#535354',
-        },
-        liteGray: {
-            main: '#A2A2A2'
-        },
-        subtitleTextGray: {
-            main: '#DFDFDF'
-        },
-        btnModalText: {
-            main: '#f6c314'
-        }
-    },
-    typography: {
-        fontFamily: 'Rubik, sans-serif',
-        body2: {
-            fontSize: pxToRem(20),
-            fontWeight: 300,
-            letterSpacing: pxToRem(0.4),
+        textPrimary: {
+            main: '#ffffff'
         },
     },
-    shape: {
-        borderRadius: 'none',
-    },
+    backgroundColor: '#fff',
+    backgroundColor2: '#f9f9f3',
+    backgroundColorInput: '#f5f8fa',
+    mobileMenuTextColor: '#000000',
+    boxShadowError: '0 0 0 3px #f8d6da',
+    radioButtonHoverColor: '#ebf1f5',
+    inputBorderColor: '#ced4da',
+    inputErrorBoxShadow: '0 0 0 3px #f8d6da',
+    inputButtonBackgroundColor: '#f8f7f5',
+    placeholderGrayColor: '#b2b9c0',
+    hoverButtonGreyColor: '#DBE0E6',
+    formRegisterColor: '#212529',
+    helperText: '#6c757d',
+    footerBorderColor: '#ececec',
+    circleBorderRadius: '50%',
+    testAssignmentBannerBackgroundZIndex: '-1',
+    testAssignmentBlockZIndex: 2,
+    photoUploadInputZIndex: 2,
+    photoUploadLabelZIndex: 1,
+    photoUploadLabelButtonZIndex: 3,
     overrides: {
         MuiCssBaseline: {
             '@global': {
+                'html': {
+                    boxSizing: 'border-box',
+                    scrollBehavior: 'smooth',
+                    width: '100%',
+                    height: '100%'
+                },
                 'html, body': {
-                    height: '100%',
+                    outline: 'none',
                 },
                 body: {
-                    display: 'flex'
+                    margin: '0 auto',
+                    backgroundColor: '#FFFFFF',
+                    fontSize: pxToRem(16),
+                    color: '#000000',
                 },
                 '#root': {
+                    width: '100%',
                     display: 'flex',
-                    flexDirection: 'column',
-                    height: '100%',
-                    width: '100%'
+                    boxSizing: 'border-box',
+                    justifyContent:'center',
+                    alignItems: 'center'
+                },
+                ':focus': {
+                    outline: 'none'
+                },
+                a: {
+                    textDecoration: 'none !important',
                 },
             },
         },
         MuiTypography: {
-            button: {
-                [breakpoints.up("xs")]: {
-                    fontSize: pxToRem(16)
-                },
-                [breakpoints.up("sm")]: {
-                    fontSize: pxToRem(19)
-                },
-                [breakpoints.up("md")]: {
-                    fontSize: pxToRem(22)
-                },
-                [breakpoints.up("lg")]: {
-                    fontSize: pxToRem(25)
-                },
-                [breakpoints.up("xl")]: {
-                    fontSize: pxToRem(28)
-                }
+            h1: {
+                fontSize: pxToRem(48),
+                color: '#000000',
+                fontWeight: 700,
+                textTransform: 'lowercase',
+            },
+            h2: {
+                fontSize: pxToRem(30),
+                color: '#212529',
+                fontWeight: 400,
+                lineHeight: pxToRem(50),
+            },
+            h3: {
+                fontSize: pxToRem(24),
+                color: '#212529',
+                fontWeight: 400,
+                lineHeight: pxToRem(30),
+            },
+            h4: {
+                fontSize: pxToRem(16),
+                color: '#212529',
+                fontWeight: 400,
+                lineHeight: pxToRem(22),
+            },
+            h6: {
+                fontSize: pxToRem(24),
+                lineHeight: pxToRem(30),
+            },
+            subtitle1: {
+                fontSize: pxToRem(16),
+                color: '#fff',
+                fontWeight: 400,
+                lineHeight: pxToRem(24),
             },
             body1: {
-                width: '100%'
+                fontSize: pxToRem(16),
+                color: '#4c4b4b',
+                fontWeight: 400,
+                lineHeight: pxToRem(24),
             },
             body2: {
-                [breakpoints.up("xs")]: {
-                    fontSize: pxToRem(12),
-                },
-                [breakpoints.up("sm")]: {
-                    fontSize: pxToRem(13)
-                },
-                [breakpoints.up("md")]: {
-                    fontSize: pxToRem(15)
-                },
-                [breakpoints.up("lg")]: {
-                    fontSize: pxToRem(16),
-                },
-                [breakpoints.up("xl")]: {
-                    fontSize: pxToRem(20),
-                }
-            },
-            h1: {
-                [breakpoints.up("xs")]: {
-                    fontSize: pxToRem(12),
-                    marginBottom: 0,
-                },
-                [breakpoints.up("sm")]: {
-                    fontSize: pxToRem(12)
-                },
-                [breakpoints.up("md")]: {
-                    fontSize: pxToRem(14)
-                },
-                [breakpoints.up("lg")]: {
-                    fontSize: pxToRem(28),
-                },
-                [breakpoints.up("xl")]: {
-                    fontSize: pxToRem(34),
-                }
+                color: '#212529'
             }
         },
-        MuiOutlinedInput: {
-            root: {
-                fontWeight: "bold",
-                fontSize: pxToRem(16),
-                borderColor: '#FDD000',
-                '&:hover': {
-                    border: 0
-                },
-                outline: 'none'
-            },
-            input: {
-                padding: 11,
-            },
-            notchedOutline: {
-                borderColor: '#FDD000',
-                '&:hover': {
-                    borderColor: '#FDD000'
-                }
+        MuiInputBase:{
+            adornedEnd:{
+                paddingRight: '0 !important'
             }
         },
-        MuiTableCell: {
-            head: {
-                color: '#fff'
-            }
+        MuiListItem:{
+          root: {
+              paddingRight: 0
+          }
         },
-        MuiGridListTile: {
-            root: {
-                textAlign: 'center',
+        MuiListItemIcon:{
+            root:{
+                minWidth: `${pxToRem(49)} !important`
+            }
+        }
 
-            },
-            tile: {
-                display: 'flex',
-                alignItems: 'center',
-                textAlign: 'center',
-                justifyContent:'center',
-            },
-        },
-        MuiDialog: {
-            paper: {
-                overflowX: 'hidden',
-                overflowY: 'hidden'
-            }
-        },
+        // MuiButton: {
+        //     root: {
+        //         textTransform: 'none',
+        //         fontSize: pxToRem(16),
+        //         fontWeight: 600,
+        //         padding: `${pxToRem(4.5)} ${pxToRem(58.5)}`,
+        //     },
+        //     containedPrimary: {
+        //         color: '#fefefe',
+        //         '&:hover': {
+        //             backgroundColor: '#D24335'
+        //         }
+        //     },
+        //     textPrimary: {
+        //         '&:hover': {
+        //             backgroundColor: 'transparent'
+        //         }
+        //     }
+        // },
     },
 });
 
