@@ -9,7 +9,7 @@ import rootReducer from './reducers';
 
 const persistConfig = { // configuration object for redux-persist
     key: 'tracker',
-    storage: storage, // define which storage to use
+    storage, // define which storage to use
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer); // create a persisted reducer
@@ -22,4 +22,3 @@ export const store = createStore(
 );
 
 export const persistor = persistStore(store); // used to create the persisted store, persistor will be used in the next step
-

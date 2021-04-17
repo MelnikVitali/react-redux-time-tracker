@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     label: {
         top: pxToRem(-6),
         paddingLeft: pxToRem(12),
-        fontSize:pxToRem(18)
+        fontSize: pxToRem(18)
     },
     input: {
         maxWidth: pxToRem(558),

@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
         },
         borderBottom: '1px solid rgba(0, 0, 0, 0.12) '
     },
-    listItemActive:{
+    listItemActive: {
         color: theme.palette.primary.main,
         backgroundColor: theme.backgroundColorTimerViewActive,
     },

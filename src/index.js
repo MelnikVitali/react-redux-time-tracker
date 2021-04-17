@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
-import { store, persistor } from './redux/store'
 import { PersistGate } from 'redux-persist/integration/react'
+import { store, persistor } from './redux/store'
 
 import { CssBaseline } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/core/styles';
@@ -26,4 +26,3 @@ ReactDOM.render(
     </React.StrictMode >,
     document.getElementById('root')
 );
-

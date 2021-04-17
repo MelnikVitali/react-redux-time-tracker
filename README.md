@@ -1,6 +1,6 @@
 # React-Redux Time-tracker App
 
-[Deployed App on GitHub pages](http://melnikvitali.github.io/test-assignment-for-frontend)
+[View the deployed App ](https://stoic-goodall-c9b81d.netlify.app/)
 
 Author: Vitalii Melnyk
 
