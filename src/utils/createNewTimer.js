@@ -8,8 +8,8 @@ export const createNewTimer = (name) => {
     return {
         id: uuidv4(),
         name: nameTimer,
-        timestamp: 0,
+        runningSeconds: 0,
         isRunning: true,
-        runningSince: DateTime.now().toSeconds(),
+        timestamp: DateTime.now().toSeconds(),
     }
 };

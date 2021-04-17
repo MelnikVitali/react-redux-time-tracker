@@ -37,7 +37,7 @@ const NewTimer = () => {
         event.preventDefault();
 
         const newTimer = createNewTimer(name);
-
+        console.log('newTimer', newTimer);
         dispatch(addTimer(newTimer));
         setName('');
     }, [name, dispatch]);

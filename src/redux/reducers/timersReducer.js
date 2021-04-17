@@ -26,8 +26,8 @@ const timersReducer = (state = [], action) => {
                 if (timer.id === action.payload.timer.id) {
                     timer = {
                         ...timer,
-                        timestamp: action.payload.timer.timestamp,
-                        runningSince: action.payload.timer.runningSince
+                        runningSeconds: action.payload.timer.runningSeconds,
+                        timestamp: action.payload.timer.timestamp
                     }
                 }
 

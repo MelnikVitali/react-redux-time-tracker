@@ -21,10 +21,10 @@ const TimerView = (props) => {
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    const {id, name, timestamp, isRunning, runningSince} = props.timer;
+    const {id, name, runningSeconds, isRunning, timestamp} = props.timer;
 
-    const [counterTime, setCounterTime] = useState(timestamp);
-    const [timeTick, setTimeTick] = useState(runningSince);
+    const [counterTime, setCounterTime] = useState(runningSeconds);
+    const [timeTick, setTimeTick] = useState(timestamp);
 
     const timerRef = useRef(null);
 
@@ -32,7 +32,7 @@ const TimerView = (props) => {
         const now = DateTime.now().toSeconds();
 
         if (isRunning) {
-            setCounterTime(Math.ceil(now - timeTick + timestamp))
+            setCounterTime(Math.ceil(now - timeTick + runningSeconds))
         }
     }, []);
 
@@ -40,8 +40,8 @@ const TimerView = (props) => {
         dispatch(updateTimer(
             {
                 id,
-                timestamp: counterTime,
-                runningSince: timeTick
+                runningSeconds: counterTime,
+                timestamp: timeTick
             }
         ));
 
