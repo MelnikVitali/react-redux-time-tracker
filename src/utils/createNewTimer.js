@@ -1,15 +1,15 @@
-import { v4 as uuidv4 } from 'uuid'
+import { v4 as uuidv4 } from 'uuid';
 
-export const createNewTimer = (name, timers) => {
-    const nameTimer = name ? name : `No name tracker #${timers.length + 1}`;
+import { DateTime } from "luxon";
+
+export const createNewTimer = (name) => {
+    const nameTimer = name ? name : DateTime.now().toFormat('dd-LL-yyyy HH:mm:ss');
+
     return {
         id: uuidv4(),
         name: nameTimer,
-        // title : !title ? 'Title' : title,
-        // project : !project ? 'Project' : project,
-        elapsed: 0,
-        runningSince: null,
-        isRunning: false,
-        edit: false
+        timestamp: 0,
+        isRunning: true,
+        runningSince: DateTime.now().toSeconds(),
     }
 };

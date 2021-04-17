@@ -1,77 +1,81 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useCallback, useState } from 'react';
+import {  useDispatch } from 'react-redux';
 
-import { addTimer } from '../../store/actions';
+import {
+    Box, FormControl,
+    IconButton, InputAdornment,
+    InputLabel, OutlinedInput
+} from '@material-ui/core';
+
 import PlayCircleIcon from '@material-ui/icons/PlayCircleFilledWhite';
 
-import useStyles from './styles';
-import { Box, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput } from '@material-ui/core';
 import { createNewTimer } from '../../utils/createNewTimer';
 
+import { addTimer } from '../../redux/actions';
+
+import useStyles from './styles';
+
 const NewTimer = () => {
-    const [ name, setName ] = useState('');
-
-    const timers = useSelector(state => state.timers);
-
-    const dispatch = useDispatch();
     const classes = useStyles();
+    const dispatch = useDispatch();
 
-    const handleChange = (event) => {
+    const [name, setName] = useState('');
+
+    const handleChange = event => {
         setName(event.target.value);
     };
 
-    const handleKeyPress = (event) => {
-        // event.preventDefault();
-
+    const handleKeyPress = event => {
         if (event.key === 'Enter') {
-            handleClickAddTimer();
+            handleClickAddTimer(event);
         }
+
         return false;
     };
 
-    const handleClickAddTimer = () => {
-        const newTimer = createNewTimer(name, timers);
-        // console.log(newTimer);
+    const handleClickAddTimer = useCallback( event => {
+        event.preventDefault();
+
+        const newTimer = createNewTimer(name);
+
         dispatch(addTimer(newTimer));
         setName('');
-    };
+    },[name,dispatch]);
 
     return (
-        <Box component='section' className={classes.root} >
-            <FormControl className={classes.formControl} variant="outlined" fullWidth >
+        <Box component="section" className={classes.root} >
+            <FormControl variant="outlined" className={classes.formControl} fullWidth >
                 <InputLabel
-                    htmlFor="outlined-adornment-password"
-                    variant='outlined'
+                    htmlFor="outlined-adornment-tracker"
+                    variant="outlined"
                     className={classes.label}
                 >
                     Enter tracker name
                 </InputLabel >
                 <OutlinedInput
-                    id="outlined-adornment-password"
-                    type='text'
+                    id="outlined-adornment-tracker"
+                    type="text"
                     value={name}
-                    autoComplete='off'
+                    autoComplete="off"
                     fullWidth
-                    onChange={(e) => handleChange(e)}
+                    onChange={handleChange}
                     onKeyDown={handleKeyPress}
                     className={classes.input}
                     endAdornment={
                         <InputAdornment position="end" >
                             <IconButton
                                 className={classes.btn}
-                                aria-label="toggle password visibility"
-                                onClick={(name) => handleClickAddTimer(name)}
-                                edge="end"
+                                aria-label="build tracker"
+                                onClick={ handleClickAddTimer}
                             >
                                 <PlayCircleIcon
-                                    // style={{ width: '47px', height: '47px' }}
                                     className={classes.playCircleIcon}
                                     aria-label="Add timer"
                                 />
                             </IconButton >
                         </InputAdornment >
                     }
-                    labelWidth={130}
+                    labelWidth={155}
                 />
             </FormControl >
         </Box >

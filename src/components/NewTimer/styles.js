@@ -1,35 +1,36 @@
-import { pxToRem } from '../../utils/pxToRem';
 import { makeStyles } from '@material-ui/core';
 
-
+import { pxToRem } from '../../utils/pxToRem';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        width:'100%',
+        width: '100%',
         marginTop: pxToRem(20),
-        marginBottom:pxToRem(20)
+        marginBottom: pxToRem(20)
+    },
+    formControl: {
+        padding: `0 ${pxToRem(8)}`
     },
     playCircleIcon: {
-        color: '#3faf6c',
-        fontSize: `${pxToRem(48)} !important`
+        color: theme.palette.primary.main,
+        fontSize: pxToRem(48)
     },
     btn: {
         width: pxToRem(46),
         height: pxToRem(46),
-        position: 'absolute',
-        top: 0
+        top: 0,
+        right: pxToRem(2)
     },
     label: {
-        top: '-4px !important'
+        top: pxToRem(-6),
+        paddingLeft: pxToRem(12),
+        fontSize:pxToRem(18)
     },
     input: {
-        width: pxToRem(558),
-        height: pxToRem(48),
-        borderColor: 'red !important',
-        borderRadius: '23px !important',
+        maxWidth: pxToRem(558),
+        maxHeight: pxToRem(48),
         paddingRight: 0
     }
-
 }));
 
 export default useStyles;

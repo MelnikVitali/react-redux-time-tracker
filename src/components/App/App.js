@@ -1,22 +1,25 @@
 import { Typography } from '@material-ui/core';
+import AvTimerIcon from '@material-ui/icons/AvTimer';
 
-import useStyles from './styles';
 import NewTimer from '../NewTimer';
 import ListTimers from '../ListTimers';
+
+import useStyles from './styles';
 
 function App() {
     const classes = useStyles();
 
     return (
         <section className={classes.root} >
-            <header className="App-header" >
-                <Typography component='h1' variant='h1' >
+            <header className={classes.paper}
+            >
+                < AvTimerIcon color="secondary" className={classes.avatar} />
+                <Typography component="h1" variant="h2" className={classes.title} >
                     tracker
                 </Typography >
             </header >
-
-            <NewTimer/>
-            <ListTimers/>
+            <NewTimer />
+            <ListTimers />
         </section >
     );
 }
