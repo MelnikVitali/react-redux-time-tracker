@@ -1,48 +1,93 @@
-import React from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { removeTimer, toggleTimer } from '../../store/actions';
-import { Divider, IconButton, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 
+import { DateTime, Duration } from 'luxon'
+
+import {
+    IconButton, ListItem,
+    ListItemIcon, ListItemText
+} from '@material-ui/core';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
-import { formatTime } from '../../utils/formatTime';
+
+import { removeTimer, toggleTimer, updateTimer } from '../../redux/actions';
 
 import useStyles from './styles';
 
 const TimerView = (props) => {
     const classes = useStyles();
-    const { index, timer } = props;
     const dispatch = useDispatch();
+    const {id, name, timestamp, isRunning, runningSince} = props.timer;
 
-    const handleClick = () => {
-        dispatch(toggleTimer(index));
+
+    const [counterTime, setCounterTime] = useState(timestamp);
+    // const [isActive, setIsActive] = useState(isRunning);
+    const [timeTick, setTimeTick] = useState(runningSince);
+
+    const timerRef = useRef(null);
+
+    useEffect(() => {
+        const now = DateTime.now().toSeconds();
+
+        if (isRunning) {
+            setCounterTime(Math.ceil(now - timeTick + timestamp))
+        }
+    }, []);
+
+    useEffect(() => {
+        dispatch(updateTimer(
+            {
+                id,
+                timestamp: counterTime,
+                runningSince: timeTick
+            }
+        ));
+
+        if (isRunning) {
+            timerRef.current = setTimeout(() => {
+                setCounterTime(prev => prev + 1);
+
+                setTimeTick(DateTime.now().toSeconds());
+            }, 1000)
+        }
+
+        return () => clearTimeout(timerRef.current);
+    }, [id, name, counterTime, isRunning, timeTick, dispatch])
+
+    const handleToggleTimer = () => {
+        dispatch(toggleTimer(id));
     };
+
     const handleDeleteTimerClick = () => {
-        dispatch(removeTimer(index));
+        dispatch(removeTimer(id));
     };
 
     return (
         <>
-            <ListItem className={classes.listItem} >
-                <ListItemText className={classes.listItemText}
-                              primary={timer.name}
-                />
+            <ListItem className={[
+                classes.listItem,
+                isRunning? classes.listItemActive : null
+            ].join(' ') } >
+                <ListItemText primary={name}/>
                 <ListItemText
-                    primary={formatTime(timer.time)}
+                    className={classes.listItemTime}
+                    primary={
+                        Duration
+                        .fromObject({seconds: counterTime})
+                        .toISOTime({suppressMilliseconds: true})
+                    }
                 />
                 <ListItemIcon className={classes.listItemIcon} >
-                    <IconButton onClick={handleClick} >
-                        {!timer.isRunning ? <PauseCircleOutlineIcon /> : <PlayCircleOutlineIcon />}
+                    <IconButton onClick={handleToggleTimer} >
+                        {isRunning ? <PauseCircleOutlineIcon /> : <PlayCircleOutlineIcon />}
                     </IconButton >
-                </ListItemIcon >
-                <ListItemIcon className={classes.listItemIcon} >
-                    <IconButton onClick={handleDeleteTimerClick} >
+                    <IconButton onClick={handleDeleteTimerClick} color="secondary" >
                         <RemoveCircleOutlineIcon />
                     </IconButton >
                 </ListItemIcon >
             </ListItem >
-            <Divider />
         </>
     )
 };
