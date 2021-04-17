@@ -38,4 +38,5 @@ const timersReducer = (state = [], action) => {
             return state;
     }
 };
+
 export default timersReducer;

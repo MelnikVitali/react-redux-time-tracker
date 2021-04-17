@@ -8,6 +8,7 @@ import {
     IconButton, ListItem,
     ListItemIcon, ListItemText
 } from '@material-ui/core';
+
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
@@ -19,11 +20,10 @@ import useStyles from './styles';
 const TimerView = (props) => {
     const classes = useStyles();
     const dispatch = useDispatch();
+
     const {id, name, timestamp, isRunning, runningSince} = props.timer;
 
-
     const [counterTime, setCounterTime] = useState(timestamp);
-    // const [isActive, setIsActive] = useState(isRunning);
     const [timeTick, setTimeTick] = useState(runningSince);
 
     const timerRef = useRef(null);
@@ -54,7 +54,7 @@ const TimerView = (props) => {
         }
 
         return () => clearTimeout(timerRef.current);
-    }, [id, name, counterTime, isRunning, timeTick, dispatch])
+    }, [id, name, counterTime, isRunning, timeTick, dispatch]);
 
     const handleToggleTimer = () => {
         dispatch(toggleTimer(id));
@@ -68,15 +68,15 @@ const TimerView = (props) => {
         <>
             <ListItem className={[
                 classes.listItem,
-                isRunning? classes.listItemActive : null
-            ].join(' ') } >
-                <ListItemText primary={name}/>
+                isRunning ? classes.listItemActive : null
+            ].join(' ')} >
+                <ListItemText primary={name} />
                 <ListItemText
                     className={classes.listItemTime}
                     primary={
                         Duration
-                        .fromObject({seconds: counterTime})
-                        .toISOTime({suppressMilliseconds: true})
+                            .fromObject({seconds: counterTime})
+                            .toISOTime({suppressMilliseconds: true})
                     }
                 />
                 <ListItemIcon className={classes.listItemIcon} >

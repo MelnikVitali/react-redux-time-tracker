@@ -85,8 +85,8 @@ const theme = createMuiTheme({
                 minWidth: pxToRem(49)
             }
         },
-        MuiSvgIcon:{
-            root:{
+        MuiSvgIcon: {
+            root: {
                 fontSize: '1.7rem'
             }
         }

@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import {  useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import {
     Box, FormControl,
@@ -33,14 +33,14 @@ const NewTimer = () => {
         return false;
     };
 
-    const handleClickAddTimer = useCallback( event => {
+    const handleClickAddTimer = useCallback(event => {
         event.preventDefault();
 
         const newTimer = createNewTimer(name);
 
         dispatch(addTimer(newTimer));
         setName('');
-    },[name,dispatch]);
+    }, [name, dispatch]);
 
     return (
         <Box component="section" className={classes.root} >
@@ -66,7 +66,7 @@ const NewTimer = () => {
                             <IconButton
                                 className={classes.btn}
                                 aria-label="build tracker"
-                                onClick={ handleClickAddTimer}
+                                onClick={handleClickAddTimer}
                             >
                                 <PlayCircleIcon
                                     className={classes.playCircleIcon}
