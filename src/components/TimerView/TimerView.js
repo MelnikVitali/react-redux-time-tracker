@@ -21,10 +21,10 @@ const TimerView = (props) => {
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    const {id, name, runningSeconds, isRunning, timestamp} = props.timer;
+    const {id, name, runningSeconds, isRunning, currentSeconds} = props.timer;
 
     const [counterTime, setCounterTime] = useState(runningSeconds);
-    const [timeTick, setTimeTick] = useState(timestamp);
+    const [timeTick, setTimeTick] = useState(currentSeconds);
 
     const timerRef = useRef(null);
 
@@ -37,6 +37,8 @@ const TimerView = (props) => {
     }, []);
 
     useEffect(() => {
+        const timeoutTime = 1000;
+
         dispatch(updateTimer(
             {
                 id,
@@ -50,7 +52,7 @@ const TimerView = (props) => {
                 setCounterTime(prev => prev + 1);
 
                 setTimeTick(DateTime.now().toSeconds());
-            }, 1000)
+            }, timeoutTime);
         }
 
         return () => clearTimeout(timerRef.current);
@@ -75,7 +77,7 @@ const TimerView = (props) => {
                     className={classes.listItemTime}
                     primary={
                         Duration
-                            .fromObject({seconds: counterTime})
+                            .fromObject({seconds: +counterTime})
                             .toISOTime({suppressMilliseconds: true})
                     }
                 />
