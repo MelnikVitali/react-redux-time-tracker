@@ -43,7 +43,7 @@ const TimerView = (props) => {
             {
                 id,
                 runningSeconds: counterTime,
-                timestamp: timeTick
+                currentSeconds: timeTick
             }
         ));
 
