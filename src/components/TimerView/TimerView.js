@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { DateTime, Duration } from 'luxon'
@@ -26,8 +26,6 @@ const TimerView = (props) => {
     const [counterTime, setCounterTime] = useState(runningSeconds);
     const [timeTick, setTimeTick] = useState(currentSeconds);
 
-    const timerRef = useRef(null);
-
     useEffect(() => {
         const now = DateTime.now().toSeconds();
 
@@ -38,6 +36,7 @@ const TimerView = (props) => {
 
     useEffect(() => {
         const timeoutTime = 1000;
+        let timerId;
 
         dispatch(updateTimer(
             {
@@ -48,14 +47,14 @@ const TimerView = (props) => {
         ));
 
         if (isRunning) {
-            timerRef.current = setTimeout(() => {
+            timerId = setInterval(() => {
                 setCounterTime(prev => prev + 1);
 
                 setTimeTick(DateTime.now().toSeconds());
             }, timeoutTime);
         }
 
-        return () => clearTimeout(timerRef.current);
+        return () => clearInterval(timerId);
     }, [id, name, counterTime, isRunning, timeTick, dispatch]);
 
     const handleToggleTimer = () => {
