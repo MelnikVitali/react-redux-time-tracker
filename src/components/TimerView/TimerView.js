@@ -23,14 +23,21 @@ const TimerView = (props) => {
 
     const {id, name, runningSeconds, isRunning, currentSeconds} = props.timer;
 
-    const [counterTime, setCounterTime] = useState(runningSeconds);
-    const [timeTick, setTimeTick] = useState(currentSeconds);
+    // const [counterTime, setCounterTime] = useState(runningSeconds);
+    // const [timeTick, setTimeTick] = useState(currentSeconds);
 
     useEffect(() => {
         const now = DateTime.now().toSeconds();
 
         if (isRunning) {
-            setCounterTime(Math.ceil(now - timeTick + runningSeconds))
+            // setCounterTime(now - timeTick + runningSeconds);
+            dispatch(updateTimer(
+                {
+                    id,
+                    runningSeconds: +(now - currentSeconds + runningSeconds).toFixed(3),
+                    currentSeconds
+                }
+            ));
         }
     }, []);
 
@@ -38,24 +45,29 @@ const TimerView = (props) => {
         const timeoutTime = 1000;
         let timerId;
 
-        dispatch(updateTimer(
-            {
-                id,
-                runningSeconds: counterTime,
-                currentSeconds: timeTick
-            }
-        ));
-
         if (isRunning) {
-            timerId = setInterval(() => {
-                setCounterTime(prev => prev + 1);
+            let lastUpdateTime = DateTime.now().toSeconds();
 
-                setTimeTick(DateTime.now().toSeconds());
+            timerId = setInterval(() => {
+                const now = DateTime.now().toSeconds();
+                const deltaTime = now - lastUpdateTime;
+                lastUpdateTime = now;
+
+                // setCounterTime(prev => prev + deltaTime);
+                // setTimeTick(now);
+
+                dispatch(updateTimer(
+                    {
+                        id,
+                        runningSeconds: +(runningSeconds + deltaTime).toFixed(3),
+                        currentSeconds: now
+                    }
+                ));
             }, timeoutTime);
         }
 
         return () => clearInterval(timerId);
-    }, [id, name, counterTime, isRunning, timeTick, dispatch]);
+    }, [id, name, runningSeconds, isRunning, currentSeconds, dispatch]);
 
     const handleToggleTimer = () => {
         dispatch(toggleTimer(id));
@@ -76,7 +88,7 @@ const TimerView = (props) => {
                     className={classes.listItemTime}
                     primary={
                         Duration
-                            .fromObject({seconds: +counterTime})
+                            .fromObject({seconds: Math.ceil(runningSeconds)})
                             .toISOTime({suppressMilliseconds: true})
                     }
                 />
