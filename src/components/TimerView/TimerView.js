@@ -1,5 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { DateTime, Duration } from 'luxon'
@@ -23,22 +22,21 @@ const TimerView = (props) => {
 
     const {id, name, runningSeconds, isRunning, currentSeconds} = props.timer;
 
-    // const [counterTime, setCounterTime] = useState(runningSeconds);
-    // const [timeTick, setTimeTick] = useState(currentSeconds);
-
     useEffect(() => {
         const now = DateTime.now().toSeconds();
 
         if (isRunning) {
-            // setCounterTime(now - timeTick + runningSeconds);
+            const newRunningSeconds = Number((now - currentSeconds + runningSeconds).toFixed(3));
+
             dispatch(updateTimer(
                 {
                     id,
-                    runningSeconds: +(now - currentSeconds + runningSeconds).toFixed(3),
+                    runningSeconds: newRunningSeconds,
                     currentSeconds
                 }
             ));
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -51,15 +49,14 @@ const TimerView = (props) => {
             timerId = setInterval(() => {
                 const now = DateTime.now().toSeconds();
                 const deltaTime = now - lastUpdateTime;
-                lastUpdateTime = now;
+                const newRunningSeconds = Number((runningSeconds + deltaTime).toFixed(3));
 
-                // setCounterTime(prev => prev + deltaTime);
-                // setTimeTick(now);
+                lastUpdateTime = now;
 
                 dispatch(updateTimer(
                     {
                         id,
-                        runningSeconds: +(runningSeconds + deltaTime).toFixed(3),
+                        runningSeconds: newRunningSeconds,
                         currentSeconds: now
                     }
                 ));
