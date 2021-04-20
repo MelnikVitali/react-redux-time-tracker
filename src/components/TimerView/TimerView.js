@@ -1,5 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { DateTime, Duration } from 'luxon'
@@ -23,39 +22,49 @@ const TimerView = (props) => {
 
     const {id, name, runningSeconds, isRunning, currentSeconds} = props.timer;
 
-    const [counterTime, setCounterTime] = useState(runningSeconds);
-    const [timeTick, setTimeTick] = useState(currentSeconds);
-
     useEffect(() => {
         const now = DateTime.now().toSeconds();
 
         if (isRunning) {
-            setCounterTime(Math.ceil(now - timeTick + runningSeconds))
+            const newRunningSeconds = Number((now - currentSeconds + runningSeconds).toFixed(3));
+
+            dispatch(updateTimer(
+                {
+                    id,
+                    runningSeconds: newRunningSeconds,
+                    currentSeconds
+                }
+            ));
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
         const timeoutTime = 1000;
         let timerId;
 
-        dispatch(updateTimer(
-            {
-                id,
-                runningSeconds: counterTime,
-                currentSeconds: timeTick
-            }
-        ));
-
         if (isRunning) {
-            timerId = setInterval(() => {
-                setCounterTime(prev => prev + 1);
+            let lastUpdateTime = DateTime.now().toSeconds();
 
-                setTimeTick(DateTime.now().toSeconds());
+            timerId = setInterval(() => {
+                const now = DateTime.now().toSeconds();
+                const deltaTime = now - lastUpdateTime;
+                const newRunningSeconds = Number((runningSeconds + deltaTime).toFixed(3));
+
+                lastUpdateTime = now;
+
+                dispatch(updateTimer(
+                    {
+                        id,
+                        runningSeconds: newRunningSeconds,
+                        currentSeconds: now
+                    }
+                ));
             }, timeoutTime);
         }
 
         return () => clearInterval(timerId);
-    }, [id, name, counterTime, isRunning, timeTick, dispatch]);
+    }, [id, name, runningSeconds, isRunning, currentSeconds, dispatch]);
 
     const handleToggleTimer = () => {
         dispatch(toggleTimer(id));
@@ -76,7 +85,7 @@ const TimerView = (props) => {
                     className={classes.listItemTime}
                     primary={
                         Duration
-                            .fromObject({seconds: +counterTime})
+                            .fromObject({seconds: Math.ceil(runningSeconds)})
                             .toISOTime({suppressMilliseconds: true})
                     }
                 />
