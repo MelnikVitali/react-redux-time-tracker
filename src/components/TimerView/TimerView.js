@@ -86,7 +86,7 @@ const TimerView = (props) => {
                     primary={
                         Duration
                             .fromObject({seconds: Math.ceil(runningSeconds)})
-                            .toISOTime({suppressMilliseconds: true})
+                            .toFormat(runningSeconds > 86400 ? "'Days': d 'Time': hh:mm:ss" : "hh:mm:ss")
                     }
                 />
                 <ListItemIcon className={classes.listItemIcon} >

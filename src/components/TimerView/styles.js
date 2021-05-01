@@ -24,8 +24,8 @@ const useStyles = makeStyles(theme => ({
         justifyContent: 'flex-end',
         paddingRight: pxToRem(26),
         fontSize: pxToRem(6),
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
+        whiteSpace: 'normal',
+        textAlign: 'right',
         [theme.breakpoints.down('xs')]: {
             paddingRight: pxToRem(10)
         }
